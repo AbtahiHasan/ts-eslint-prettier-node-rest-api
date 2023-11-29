@@ -1,15 +1,14 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import studentRouter from './app/modules/student.routes';
+
 export const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  const a = req.query.a;
-
-  res.send(a);
-});
+// all routes here
+app.use('/api/v1/students', studentRouter);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   try {
