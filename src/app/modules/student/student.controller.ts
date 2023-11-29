@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
-import catchAsync from '../../../utils/catchAsync';
-import sendResponse from '../../../utils/sendResponse';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
 const createStudent = catchAsync(async (req: Request, res: Response) => {
