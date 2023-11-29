@@ -1,12 +1,12 @@
 import { Schema, model } from 'mongoose';
 import {
-  Guardian,
-  LocalGuardian,
-  Student,
-  UserName,
+  TGuardian,
+  TLocalGuardian,
+  TStudent,
+  TUserName,
 } from './student.interface';
 
-const userNameSchema = new Schema<UserName>({
+const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: true,
@@ -20,7 +20,7 @@ const userNameSchema = new Schema<UserName>({
   },
 });
 
-const guardianSchema = new Schema<Guardian>({
+const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
     required: true,
@@ -47,7 +47,7 @@ const guardianSchema = new Schema<Guardian>({
   },
 });
 
-const localGuardianSchema = new Schema<LocalGuardian>({
+const localGuardianSchema = new Schema<TLocalGuardian>({
   name: {
     type: String,
     required: true,
@@ -66,12 +66,19 @@ const localGuardianSchema = new Schema<LocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<Student>({
-  id: { type: String },
+const studentSchema = new Schema<TStudent>({
+  id: { type: String, unique: true, required: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    unique: true,
+    required: true,
+    ref: 'User',
+  },
   name: {
     type: userNameSchema,
     required: true,
   },
+
   gender: {
     type: String,
     enum: {
@@ -83,20 +90,13 @@ const studentSchema = new Schema<Student>({
   email: { type: String, required: true },
   contactNo: { type: String, required: true },
   emergencyContactNo: { type: String, required: true },
-  bloodGroup: {
-    type: String,
-    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-  },
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
   guardian: guardianSchema,
   localGuardian: localGuardianSchema,
-  profileImg: { type: String },
-  isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-    default: 'active',
-  },
+  profileImage: { type: String },
+  academicDepartment: { type: Schema.Types.ObjectId, ref: 'AcademicSemester' },
+  isDeleted: { type: Boolean, default: false },
 });
 
-export const StudentModel = model<Student>('Student', studentSchema);
+export const Student = model<TStudent>('Student', studentSchema);
