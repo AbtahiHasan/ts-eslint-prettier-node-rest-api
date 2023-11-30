@@ -6,65 +6,74 @@ import {
   TUserName,
 } from './student.interface';
 
-const userNameSchema = new Schema<TUserName>({
-  firstName: {
-    type: String,
-    required: true,
+const userNameSchema = new Schema<TUserName>(
+  {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    middleName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
   },
-  middleName: {
-    type: String,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false },
+);
 
-const guardianSchema = new Schema<TGuardian>({
-  fatherName: {
-    type: String,
-    required: true,
+const guardianSchema = new Schema<TGuardian>(
+  {
+    fatherName: {
+      type: String,
+      required: true,
+    },
+    fatherOccupation: {
+      type: String,
+      required: true,
+    },
+    fatherContactNo: {
+      type: String,
+      required: true,
+    },
+    motherName: {
+      type: String,
+      required: true,
+    },
+    motherOccupation: {
+      type: String,
+      required: true,
+    },
+    motherContactNo: {
+      type: String,
+      required: true,
+    },
   },
-  fatherOccupation: {
-    type: String,
-    required: true,
-  },
-  fatherContactNo: {
-    type: String,
-    required: true,
-  },
-  motherName: {
-    type: String,
-    required: true,
-  },
-  motherOccupation: {
-    type: String,
-    required: true,
-  },
-  motherContactNo: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false },
+);
 
-const localGuardianSchema = new Schema<TLocalGuardian>({
-  name: {
-    type: String,
-    required: true,
+const localGuardianSchema = new Schema<TLocalGuardian>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    occupation: {
+      type: String,
+      required: true,
+    },
+    contactNo: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
   },
-  occupation: {
-    type: String,
-    required: true,
-  },
-  contactNo: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false },
+);
 
 const studentSchema = new Schema<TStudent>({
   id: { type: String, unique: true, required: true },
