@@ -1,22 +1,9 @@
-import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
-const createStudent = catchAsync(async (req: Request, res: Response) => {
-  const { student: studentData } = req.body;
-  const result = await StudentServices.createStudentIntoDB(studentData);
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.CREATED,
-    message: 'Student is created successfully!',
-    data: result,
-  });
-});
-
-const getAllStudents = catchAsync(async (req: Request, res: Response) => {
+const getAllStudents = catchAsync(async (req, res) => {
   const result = await StudentServices.getAllStudentsFromDB();
 
   sendResponse(res, {
@@ -27,7 +14,7 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
+const getSingleStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
 
   const result = await StudentServices.getSingleStudentFromDB(studentId);
@@ -38,8 +25,7 @@ const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-export const StudentControllers = {
-  createStudent,
+export const studentControllers = {
   getAllStudents,
   getSingleStudent,
 };
